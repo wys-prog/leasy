@@ -545,6 +545,9 @@ add_library(${PROJECT_NAME} OBJECT
 		src/leasy/types/string.cpp
 		src/leasy/meta/classes/image.cpp
 		src/leasy/meta/classes/image.hpp
+		src/leasy/types/io/stream.hpp
+		src/leasy/types/spans.hpp
+		src/leasy/types/io/file.hpp
 )
 
 # These are actually unused when building in CMake

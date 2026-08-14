@@ -33,6 +33,9 @@
 #include "signals.hpp"
 #include "metadata/glues/lua_glues.hpp"
 
+#include "types/string.hpp"
+#include "types/io/file.hpp"
+
 namespace leasy {
   namespace ily3 {
     extern std::vector<std::shared_ptr<Drawable>> leasy_draw_queue;
@@ -55,6 +58,8 @@ namespace leasy {
       should_exit = true;
     }
 
+    Bitmap *m2 = nullptr;
+
     void ready(void) {
       if (! leasy_enabled) return;
       leasy::ready.emit();
@@ -62,6 +67,10 @@ namespace leasy {
       metadata::AppDomain().bind(ily3::global::state);
       ily3::global::state.call<void>("leasy.User.ready");
       io().System.writeln("reflection metadata size: ", kits::format_bytes(metadata::AppDomain().getMetadataSize()));
+
+      File file;
+      file.open("/Users/wys/Documents/leasy/icon.png");
+      m2 = new Bitmap{Filesystem_Stream::InputStream(file.rdbuf(), "hi"), true, 0};
     }
     
     void process() {
@@ -84,6 +93,7 @@ namespace leasy {
       }
 
       ui3::update_windows();
+      map->Blit(0, 0, *m2, m2->GetRect(), Opacity());
     }
 
     void exit(void) {}

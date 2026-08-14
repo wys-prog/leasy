@@ -37,8 +37,11 @@ namespace leasy {
     using value_type = V;
 
     virtual void forEach(const std::function<void(const I&, const V&)>&) const = 0;
+    virtual void forEach(const std::function<void(const I&, V&)>&) = 0;
     virtual bool hasValue(const V&) const = 0;
     virtual bool hasIndex(const I&) const = 0;
     [[nodiscard]] virtual size_t size() const = 0;
+    virtual I begin() const = 0;
+    virtual I end() const = 0;
   };
 }
